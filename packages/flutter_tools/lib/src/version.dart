@@ -7,8 +7,10 @@ import 'dart:async';
 import 'package:meta/meta.dart';
 
 import 'base/common.dart';
+import 'base/context.dart';
 import 'base/file_system.dart';
 import 'base/io.dart';
+import 'base/platform.dart';
 import 'base/process.dart';
 import 'base/time.dart';
 import 'cache.dart';
@@ -24,7 +26,9 @@ enum Channel {
 }
 
 /// The flutter GitHub repository.
-const String _flutterGit = 'https://github.com/flutter/flutter.git';
+String get _flutterGit => context.get<Platform>().environment['FLUTTER_GIT_URL'] == null 
+    ? 'https://github.com/flutter/flutter.git'
+    : context.get<Platform>().environment['FLUTTER_GIT_URL'];
 
 /// Retrieve a human-readable name for a given [channel].
 ///
